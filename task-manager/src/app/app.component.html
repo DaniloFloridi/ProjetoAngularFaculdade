@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+  
+  <div class="add-task-form">
+    <input 
+      [(ngModel)]="newTask.title" 
+      placeholder="Task title"
+      class="task-input">
+    
+    <input 
+      [(ngModel)]="newTask.description" 
+      placeholder="Task description"
+      class="task-input">
+    
+    <select [(ngModel)]="newTask.priority" class="priority-select">
+      <option value="low">Low Priority</option>
+      <option value="medium">Medium Priority</option>
+      <option value="high">High Priority</option>
+    </select>
+    
+    <button (click)="addTask()" class="add-button">Add Task</button>
+  </div>
+
+  <button (click)="toggleTaskList()" class="toggle-button">
+    {{ showTasks ? 'Hide Tasks' : 'Show Tasks' }}
+  </button>
+
+  <div class="task-list" *ngIf="showTasks" [@slideInOut]>
+    <div *ngFor="let task of tasks" 
+         class="task-item" 
+         [id]="'task-' + task.id"
+         [class.completed]="task.completed"
+         [class.priority-low]="task.priority === 'low'"
+         [class.priority-medium]="task.priority === 'medium'"
+         [class.priority-high]="task.priority === 'high'">
+      <div class="task-content">
+        <div class="checkbox-wrapper">
+          <input 
+            type="checkbox" 
+            [checked]="task.completed"
+            (change)="toggleComplete(task)"
+            class="custom-checkbox">
+          <span class="checkmark"></span>
+        </div>
+        <div class="task-details">
+          <h3>{{ task.title }}</h3>
+          <p>{{ task.description }}</p>
+          <span class="priority-badge">{{ task.priority }}</span>
+        </div>
+      </div>
+      <button (click)="deleteTask(task.id)" class="delete-button">Delete</button>
+    </div>
+  </div>
+</div>
