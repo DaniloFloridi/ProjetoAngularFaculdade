@@ -116,7 +116,16 @@
   }
 
   .task-list {
-    transition: all 0.3s ease;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .task-list.hidden {
+    max-height: 0;
+  }
+
+  .task-list.visible {
+    max-height: 1000px; /* Adjust based on your needs */
   }
 
 /* Add these new styles to your existing CSS */

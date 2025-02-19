@@ -13,9 +13,8 @@
   <button (click)="toggleTaskList()">
     {{showTasks ? 'Hide Tasks' : 'Show Tasks'}}
   </button>
-
-  <div class="task-list" *ngIf="showTasks" [@slideInOut]>
-    <div *ngFor="let task of tasks" 
+    <div class="task-list" [ngClass]="{'visible': showTasks, 'hidden': !showTasks}">
+      <div *ngFor="let task of tasks" 
          [id]="'task-' + task.id"
          [ngClass]="{
            'task-item': true,
@@ -24,13 +23,13 @@
            'priority-medium': task.priority === 'medium',
            'priority-low': task.priority === 'low'
          }">
-      <h3>{{task.title}}</h3>
-      <p>{{task.description}}</p>
-      <span class="priority-badge">{{task.priority}}</span>
-      <button (click)="toggleComplete(task)">
-        {{task.completed ? 'Undo' : 'Complete'}}
-      </button>
-      <button (click)="deleteTask(task.id)">Delete</button>
+        <h3>{{task.title}}</h3>
+        <p>{{task.description}}</p>
+        <span class="priority-badge">{{task.priority}}</span>
+        <button (click)="toggleComplete(task)">
+          {{task.completed ? 'Undo' : 'Complete'}}
+        </button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </div>
     </div>
   </div>
-</div>
